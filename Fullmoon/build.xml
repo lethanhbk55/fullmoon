@@ -1,0 +1,55 @@
+<project name="Fullmoon" default="deploy" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="dist" value="dist" />
+	<property name="build" value="bin" />
+	<property file="build.properties" />
+	<buildnumber file="build.number" />
+	<property name="jar.name" value="${ant.project.name}.build.${build.number}.jar" />
+
+	<!-- clean cache for ivy -->
+	<target name="clean-cache" description="--> clean the ivy cache">
+		<ivy:cleancache />
+	</target>
+
+	<!-- User when ivy.xml changed -->
+	<target name="resolve" description="retreive dependencies with ivy">
+		<delete dir="${lib.dir}">
+			<include name="*.jar" />
+			<exclude name="sqljdbc*.jar" />
+		</delete>
+		<ivy:retrieve />
+	</target>
+
+	<target name="report" depends="resolve" description="generates a report of dependencies">
+		<ivy:report todir="${build.classes}" />
+	</target>
+
+	<target name="clean" description="clean dist directory">
+		<delete dir="${dist}">
+		</delete>
+	</target>
+
+	<target name="prep">
+		<mkdir dir="${dist}" />
+	</target>
+
+	<target name="build" depends="clean, prep">
+		<jar destfile="${dist}/${jar.name}">
+			<fileset dir="${build}" />
+		</jar>
+	</target>
+
+	<target name="deploy" depends="build">
+		<delete>
+			<fileset dir="${deploy.path}">
+				<include name="${ant.project.name}*.jar" />
+			</fileset>
+		</delete>
+
+
+		<copy todir="${deploy.path}">
+			<fileset dir="${dist}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+	</target>
+</project>

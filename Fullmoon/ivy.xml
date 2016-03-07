@@ -1,0 +1,18 @@
+<ivy-module version="2.0">
+	<info organisation="org.apache" module="fullmoon" />
+
+	<configurations defaultconfmapping="default">
+		<conf name="default" />
+		<conf name="java7" extends="default" description="Java 7 dependencies" />
+		<conf name="eclipse" description="Special dependencies in Eclipse" />
+		<conf name="utest" extends="eclipse" description="Unit testing dependencies" />
+	</configurations>
+
+	<dependencies>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.10" />
+		<dependency org="commons-lang" name="commons-lang" rev="2.6" />
+		<dependency org="org.msgpack" name="msgpack" rev="0.6.11" />
+		<dependency org="commons-io" name="commons-io" rev="2.4" />
+		<dependency org="net.minidev" name="json-smart" rev="2.1.1" />
+	</dependencies>
+</ivy-module>

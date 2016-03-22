@@ -126,4 +126,9 @@ public abstract class AbstractTask<T> extends BaseEventDispatcher implements Tas
 	protected void setFailureData(TaskFailureData taskFailureData) {
 		this.taskFailureData = taskFailureData;
 	}
+	
+	@Override
+	public void rollback() {
+		
+	}
 }

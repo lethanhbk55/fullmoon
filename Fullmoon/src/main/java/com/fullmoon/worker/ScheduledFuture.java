@@ -1,7 +1,9 @@
 package com.fullmoon.worker;
 
 public interface ScheduledFuture {
-	long getId();
+	int getId();
 
 	void cancel();
+	
+	long getRemainningDelay();
 }

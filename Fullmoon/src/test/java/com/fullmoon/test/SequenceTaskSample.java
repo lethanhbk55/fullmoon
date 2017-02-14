@@ -11,11 +11,12 @@ import com.fullmoon.test.jobs.Job1;
 import com.fullmoon.worker.impl.DisruptorWorkerPool;
 import com.fullmoon.worker.impl.RoutingWorkerPoolImpl;
 import com.fullmoon.worker.impl.ScheduledWorkerPoolImpl;
+import com.nhb.common.utils.Initializer;
 
 public class SequenceTaskSample {
-	// static {
-	// Initializer.bootstrap(SequenceTaskSample.class);
-	// }
+	static {
+		Initializer.bootstrap(SequenceTaskSample.class);
+	}
 
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {

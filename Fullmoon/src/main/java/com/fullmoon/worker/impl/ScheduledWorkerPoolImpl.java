@@ -15,7 +15,7 @@ public class ScheduledWorkerPoolImpl<T> implements ScheduledWorkerPool<T> {
 
 	private ScheduledExecutorService service;
 	private WorkerPool<T> workerPool;
-	private final Map<Long, ScheduledFuture<?>> schuduleIdMapping = new ConcurrentHashMap<>();
+	private final Map<Integer, ScheduledFuture<?>> schuduleIdMapping = new ConcurrentHashMap<>();
 
 	public ScheduledWorkerPoolImpl(ScheduledExecutorService service, WorkerPool<T> workerPool) {
 		this.service = service;
@@ -31,6 +31,13 @@ public class ScheduledWorkerPoolImpl<T> implements ScheduledWorkerPool<T> {
 	public void shutdown() {
 		if (service != null) {
 			this.service.shutdown();
+			try {
+				if (this.service.awaitTermination(3, TimeUnit.SECONDS)) {
+					this.service.shutdownNow();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		if (this.workerPool != null) {
